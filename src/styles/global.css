@@ -1,0 +1,26 @@
+:root {
+  --primary-color: #00559b;
+  --secondary-color: #ff953d;
+  --neutral-color: #7b8b99;
+  --warning-color: #ffc107;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --background-color: #f5faff;
+  --light-text-color: #ffffff;
+  --dark-text-color: #1a1a1a;
+  --font-main: 'Poppins', sans-serif;
+  --spacing-md: 16px;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--dark-text-color);
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  background-color: var(--primary-color);
+  padding-bottom: 24px;
+}
