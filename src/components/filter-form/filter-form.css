@@ -1,0 +1,33 @@
+.filter-form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter-form {
+  border: 1px solid var(--secondary-color);
+  background-color: var(--background-color);
+  border-radius: 18px;
+  padding: 16px 32px;
+}
+
+.filter-form h1 {
+  text-align: center;
+}
+
+.origin-destination-container {
+  display: flex;
+  gap: 16px;
+}
+
+.departure-arrival-container {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.button-container {
+  margin: 16px 0px 0px 0px;
+  display: flex;
+  justify-content: center;
+}
