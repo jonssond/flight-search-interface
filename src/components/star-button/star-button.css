@@ -1,0 +1,50 @@
+.star-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  position: relative;
+}
+
+.star-button:hover {
+  transform: scale(1.2);
+  background-color: rgba(255, 215, 0, 0.1);
+}
+
+.star-button:active {
+  transform: scale(1.1);
+}
+
+.star-button:focus {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+}
+
+.star-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  background: radial-gradient(
+    circle,
+    rgba(255, 215, 0, 0.3) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.star-button:hover::before {
+  width: 40px;
+  height: 40px;
+}

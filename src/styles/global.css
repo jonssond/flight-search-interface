@@ -1,17 +1,3 @@
-:root {
-  --primary-color: #00559b;
-  --secondary-color: #ff953d;
-  --neutral-color: #7b8b99;
-  --warning-color: #ffc107;
-  --success-color: #28a745;
-  --danger-color: #dc3545;
-  --background-color: #f5faff;
-  --light-text-color: #ffffff;
-  --dark-text-color: #1a1a1a;
-  --font-main: 'Poppins', sans-serif;
-  --spacing-md: 16px;
-}
-
 body {
   font-family: var(--font-main);
   color: var(--dark-text-color);
@@ -20,7 +6,35 @@ body {
   padding: 0;
 }
 
+.App {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+}
+
 .main-container {
-  background-color: var(--primary-color);
-  padding-bottom: 24px;
+  background: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.loading-message,
+.no-results-message,
+.favorites-status {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 1.2rem;
+  color: #4a5568;
+  background: white;
+  margin: 20px auto;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.favorites-status {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+  margin-bottom: 30px;
 }
