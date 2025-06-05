@@ -4,20 +4,22 @@ import { Header } from './components/header/Header';
 import { Table } from './components/table/Table';
 import { flightsHeaders } from './constants/tableHeader';
 import { useFlights } from './hooks/useFlights';
-import { formatISODateToLocalDate } from './utils/formatDate';
+import { formatDateToStringDate } from './utils/formatDate';
 import { formatCurrency } from './utils/formatCurrency';
 import { Pagination } from './components/pagination/Pagination';
+import { FlightFilters } from './types/FlightFilters';
 
 export const App = () => {
   const { fetchGetAllFlights, flights, meta, isLoading } = useFlights();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [currentFilters, setCurrentFilters] = useState<FlightFilters>({});
 
   const fetchFlightsOnPage = useCallback(
-    (page: number) => {
-      fetchGetAllFlights(page, itemsPerPage);
+    (page: number, filters?: FlightFilters) => {
+      fetchGetAllFlights(page, itemsPerPage, filters || currentFilters);
     },
-    [fetchGetAllFlights, itemsPerPage],
+    [fetchGetAllFlights, itemsPerPage, currentFilters],
   );
 
   useEffect(() => {
@@ -28,11 +30,11 @@ export const App = () => {
     setCurrentPage(newPage);
   };
 
-  // const handleItemsPerPageChange = (newLimit: number) => {
-  //   setItemsPerPage(newLimit);
-  //   setCurrentPage(1); // Resetar para a primeira página ao mudar o limite
-  //   fetchGetAllFlights(1, newLimit);
-  // };
+  const handleFilter = (filters: FlightFilters) => {
+    setCurrentFilters(filters);
+    setCurrentPage(1);
+    fetchGetAllFlights(1, itemsPerPage, filters);
+  };
 
   const tableData = flights.map((flight) => {
     return [
@@ -40,8 +42,8 @@ export const App = () => {
       flight.airline,
       flight.origin,
       flight.destination,
-      formatISODateToLocalDate(new Date(flight.departure)),
-      formatISODateToLocalDate(new Date(flight.arrival)),
+      formatDateToStringDate(new Date(flight.departure)),
+      formatDateToStringDate(new Date(flight.arrival)),
       formatCurrency(flight.price),
       flight.id,
     ];
@@ -51,8 +53,7 @@ export const App = () => {
     <div className="App">
       <div className="main-container">
         <Header />
-        <FilterForm />{' '}
-        {/* Você pode querer que o filtro resete a paginação para 1 */}
+        <FilterForm onFilter={handleFilter} />
       </div>
       {isLoading && (
         <div style={{ textAlign: 'center', padding: '20px' }}>
@@ -72,7 +73,7 @@ export const App = () => {
           currentPage={meta.currentPage}
           totalPages={meta.totalPages}
           onPageChange={handlePageChange}
-          itemsPerPage={meta.itemsPerPage}
+          itemsPerPage={itemsPerPage}
           totalItems={meta.totalItems}
         />
       )}
