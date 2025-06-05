@@ -1,30 +1,63 @@
 import { useEffect, useState, useCallback } from 'react';
-import { FilterForm } from './components/filter-form/FilterForm';
+import { FilterForm, FlightFilters } from './components/filter-form/FilterForm';
 import { Header } from './components/header/Header';
 import { Table } from './components/table/Table';
+import { SortConfig, SortOrder } from './components/table/types';
 import { flightsHeaders } from './constants/tableHeader';
 import { useFlights } from './hooks/useFlights';
 import { formatDateToStringDate } from './utils/formatDate';
 import { formatCurrency } from './utils/formatCurrency';
 import { Pagination } from './components/pagination/Pagination';
-import { FlightFilters } from './types/FlightFilters';
+
+const COLUMN_MAPPING: { [key: string]: string } = {
+  'Nº Vôo': 'flightNumber',
+  Companhia: 'airline',
+  Origem: 'origin',
+  Destino: 'destination',
+  Saída: 'departure',
+  Chegada: 'arrival',
+  Valor: 'price',
+};
 
 export const App = () => {
   const { fetchGetAllFlights, flights, meta, isLoading } = useFlights();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentFilters, setCurrentFilters] = useState<FlightFilters>({});
+  const [sortConfig, setSortConfig] = useState<SortConfig>({
+    column: '',
+    order: null,
+  });
 
   const fetchFlightsOnPage = useCallback(
-    (page: number, filters?: FlightFilters) => {
-      fetchGetAllFlights(page, itemsPerPage, filters || currentFilters);
+    (
+      page: number,
+      filters?: FlightFilters,
+      sortBy?: string,
+      sortOrder?: 'asc' | 'desc',
+    ) => {
+      fetchGetAllFlights(
+        page,
+        itemsPerPage,
+        filters || currentFilters,
+        sortBy,
+        sortOrder,
+      );
     },
     [fetchGetAllFlights, itemsPerPage, currentFilters],
   );
 
   useEffect(() => {
-    fetchFlightsOnPage(currentPage);
-  }, [fetchFlightsOnPage, currentPage]);
+    const sortBy = sortConfig.order
+      ? COLUMN_MAPPING[sortConfig.column]
+      : undefined;
+    fetchFlightsOnPage(
+      currentPage,
+      currentFilters,
+      sortBy,
+      sortConfig.order || undefined,
+    );
+  }, [fetchFlightsOnPage, currentPage, sortConfig]);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
@@ -33,7 +66,21 @@ export const App = () => {
   const handleFilter = (filters: FlightFilters) => {
     setCurrentFilters(filters);
     setCurrentPage(1);
-    fetchGetAllFlights(1, itemsPerPage, filters);
+    const sortBy = sortConfig.order
+      ? COLUMN_MAPPING[sortConfig.column]
+      : undefined;
+    fetchGetAllFlights(
+      1,
+      itemsPerPage,
+      filters,
+      sortBy,
+      sortConfig.order || undefined,
+    );
+  };
+
+  const handleSort = (column: string, order: SortOrder) => {
+    setSortConfig({ column, order });
+    setCurrentPage(1);
   };
 
   const tableData = flights.map((flight) => {
@@ -66,7 +113,12 @@ export const App = () => {
         </div>
       )}
       {!isLoading && flights.length > 0 && (
-        <Table columns={flightsHeaders} data={tableData} />
+        <Table
+          columns={flightsHeaders}
+          data={tableData}
+          onSort={handleSort}
+          sortConfig={sortConfig}
+        />
       )}
       {!isLoading && meta.totalPages > 1 && (
         <Pagination
