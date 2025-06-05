@@ -44,36 +44,41 @@ export const FilterForm = ({ onFilter }: FilterFormProps) => {
   return (
     <div className="filter-form-container">
       <form onSubmit={handleSubmit} className="filter-form">
-        <h1>Busque seus vôos!</h1>
+        <h1>Busque seus voos!</h1>
         <div className="origin-destination-container">
           <Input
             label="Origem"
-            placeholder="Selecione sua origem..."
+            placeholder="Digite a cidade de origem..."
             value={origin}
             onChange={(e) => setOrigin(e.target.value)}
           />
           <Input
             label="Destino"
-            placeholder="Selecione seu destino..."
+            placeholder="Digite a cidade de destino..."
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
           />
         </div>
         <div className="departure-arrival-container">
           <DateInput
-            label="Saída"
+            label="Data de Saída"
             value={departureDate}
             onChange={(e) => setDepartureDate(e.target.value)}
           />
           <DateInput
-            label="Chegada"
+            label="Data de Chegada"
             value={arrivalDate}
             onChange={(e) => setArrivalDate(e.target.value)}
           />
         </div>
         <div className="button-container">
-          <Button content="Buscar" type="submit" />
-          <Button content="Limpar" type="button" onClick={handleReset} />
+          <Button content="Buscar Voos" type="submit" variant="primary" />
+          <Button
+            content="Limpar Filtros"
+            type="button"
+            onClick={handleReset}
+            variant="secondary"
+          />
         </div>
       </form>
     </div>
