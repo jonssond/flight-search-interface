@@ -37,7 +37,7 @@ export const useFlights = () => {
         const response = await api.get(`/flights?${queryParams}`);
         const data = await response.data;
 
-        setFlights(data.flights);
+        setFlights(data.data);
         setMeta(data.meta);
       } catch (error) {
         console.error('Error fetching flights:', error);
