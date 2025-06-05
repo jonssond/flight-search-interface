@@ -1,11 +1,17 @@
 import { inputProps } from './types';
 
 export const Input = (props: inputProps) => {
-  const { label, placeholder } = props;
+  const { label, placeholder, value, onChange } = props;
+
   return (
     <div>
       <p>{label}</p>
-      <input type="text" name="" id="" placeholder={placeholder} />
+      <input
+        type="text"
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
     </div>
   );
 };
