@@ -2,6 +2,7 @@
 import { useCallback, useState } from 'react';
 import { Flight, FlightResponse } from '../types/api/Flight';
 import { api } from '../services/axios';
+import { FlightFilters } from '../types/FlightFilters';
 
 type PaginationMeta = FlightResponse['meta'];
 
@@ -18,18 +19,29 @@ export const useFlights = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchGetAllFlights = useCallback(
-    async (page: number, limit: number) => {
+    async (page = 1, limit = 10, filters?: FlightFilters) => {
       setIsLoading(true);
       try {
-        const response = await api.get<FlightResponse>(
-          `/flights?page=${page}&limit=${limit}`,
-        );
-        setFlights(response.data.data ?? []);
-        setMeta(response.data.meta ?? initialMeta);
+        const queryParams = new URLSearchParams({
+          page: page.toString(),
+          limit: limit.toString(),
+        });
+
+        if (filters?.origin) queryParams.append('origin', filters.origin);
+        if (filters?.destination)
+          queryParams.append('destination', filters.destination);
+        if (filters?.departureDate)
+          queryParams.append('departureDate', filters.departureDate);
+        if (filters?.arrivalDate)
+          queryParams.append('arrivalDate', filters.arrivalDate);
+
+        const response = await api.get(`/flights?${queryParams}`);
+        const data = await response.data;
+
+        setFlights(data.flights);
+        setMeta(data.meta);
       } catch (error) {
         console.error('Error fetching flights:', error);
-        setFlights([]);
-        setMeta(initialMeta);
       } finally {
         setIsLoading(false);
       }
@@ -37,5 +49,10 @@ export const useFlights = () => {
     [],
   );
 
-  return { fetchGetAllFlights, flights, meta, isLoading };
+  return {
+    fetchGetAllFlights,
+    flights,
+    meta,
+    isLoading,
+  };
 };
