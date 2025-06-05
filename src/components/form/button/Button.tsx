@@ -1,13 +1,12 @@
 import { buttonProps } from './types';
+import './button.css';
 
 export const Button = (props: buttonProps) => {
-  const { content, type, onClick } = props;
+  const { content, type, onClick, variant = 'primary' } = props;
 
   return (
-    <div>
-      <button type={type} onClick={onClick}>
-        {content}
-      </button>
-    </div>
+    <button type={type} onClick={onClick} className={`button ${variant}`}>
+      {content}
+    </button>
   );
 };

@@ -1,5 +1,5 @@
 export const flightsHeaders = [
-  'Nº Vôo',
+  'Nº Voo',
   'Companhia',
   'Origem',
   'Destino',

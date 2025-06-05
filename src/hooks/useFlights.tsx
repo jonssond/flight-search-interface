@@ -18,7 +18,13 @@ export const useFlights = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchGetAllFlights = useCallback(
-    async (page = 1, limit = 10, filters?: FlightFilters) => {
+    async (
+      page = 1,
+      limit = 10,
+      filters?: FlightFilters,
+      sortBy?: string,
+      sortOrder?: 'asc' | 'desc',
+    ) => {
       setIsLoading(true);
       try {
         const queryParams = new URLSearchParams({
@@ -34,10 +40,13 @@ export const useFlights = () => {
         if (filters?.arrivalDate)
           queryParams.append('arrivalDate', filters.arrivalDate);
 
+        if (sortBy) queryParams.append('sortBy', sortBy);
+        if (sortOrder) queryParams.append('sortOrder', sortOrder);
+
         const response = await api.get(`/flights?${queryParams}`);
         const data = response.data;
 
-        setFlights(data.data);
+        setFlights(data.flights);
         setMeta(data.meta);
       } catch (error) {
         console.error('Error fetching flights:', error);
