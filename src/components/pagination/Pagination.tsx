@@ -1,5 +1,5 @@
 import React from 'react';
-import './Pagination.css';
+import './pagination.css';
 
 type PaginationProps = {
   currentPage: number;
@@ -13,8 +13,6 @@ export const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
-  // itemsPerPage,
-  // totalItems,
 }) => {
   if (totalPages <= 1) {
     return null;
