@@ -35,7 +35,7 @@ export const useFlights = () => {
           queryParams.append('arrivalDate', filters.arrivalDate);
 
         const response = await api.get(`/flights?${queryParams}`);
-        const data = await response.data;
+        const data = response.data;
 
         setFlights(data.data);
         setMeta(data.meta);
