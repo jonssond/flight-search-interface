@@ -1,23 +1,79 @@
+import { useState } from 'react';
 import { Button } from '../form/button/Button';
 import { DateInput } from '../form/date-input/DateInput';
 import { Input } from '../form/input/Input';
 import './filter-form.css';
 
-export const FilterForm = () => {
+interface FilterFormProps {
+  onFilter: (filters: FlightFilters) => void;
+}
+
+export interface FlightFilters {
+  origin?: string;
+  destination?: string;
+  departureDate?: string;
+  arrivalDate?: string;
+}
+
+export const FilterForm = ({ onFilter }: FilterFormProps) => {
+  const [origin, setOrigin] = useState('');
+  const [destination, setDestination] = useState('');
+  const [departureDate, setDepartureDate] = useState('');
+  const [arrivalDate, setArrivalDate] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const filters: FlightFilters = {};
+    if (origin) filters.origin = origin;
+    if (destination) filters.destination = destination;
+    if (departureDate) filters.departureDate = departureDate;
+    if (arrivalDate) filters.arrivalDate = arrivalDate;
+
+    onFilter(filters);
+  };
+
+  const handleReset = () => {
+    setOrigin('');
+    setDestination('');
+    setDepartureDate('');
+    setArrivalDate('');
+    onFilter({});
+  };
+
   return (
     <div className="filter-form-container">
-      <form action="" className="filter-form">
+      <form onSubmit={handleSubmit} className="filter-form">
         <h1>Busque seus vôos!</h1>
         <div className="origin-destination-container">
-          <Input label="Origem" placeholder="Selecione sua origem..." />
-          <Input label="Destino" placeholder="Selecione seu destino..." />
+          <Input
+            label="Origem"
+            placeholder="Selecione sua origem..."
+            value={origin}
+            onChange={(e) => setOrigin(e.target.value)}
+          />
+          <Input
+            label="Destino"
+            placeholder="Selecione seu destino..."
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
+          />
         </div>
         <div className="departure-arrival-container">
-          <DateInput label="Saída" />
-          <DateInput label="Chegada" />
+          <DateInput
+            label="Saída"
+            value={departureDate}
+            onChange={(e) => setDepartureDate(e.target.value)}
+          />
+          <DateInput
+            label="Chegada"
+            value={arrivalDate}
+            onChange={(e) => setArrivalDate(e.target.value)}
+          />
         </div>
         <div className="button-container">
-          <Button content="Buscar" />
+          <Button content="Buscar" type="submit" />
+          <Button content="Limpar" type="button" onClick={handleReset} />
         </div>
       </form>
     </div>

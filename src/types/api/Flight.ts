@@ -8,3 +8,13 @@ export type Flight = {
   arrival: Date;
   price: number;
 };
+
+export type FlightResponse = {
+  data: Flight[];
+  meta: {
+    currentPage: number;
+    totalPages: number;
+    totalItems: number;
+    itemsPerPage: number;
+  };
+};
