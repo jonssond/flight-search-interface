@@ -28,3 +28,27 @@
   font-size: 18px;
   font-weight: bold;
 }
+
+.table-header-row .table-cell.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.table-header-row .table-cell.sortable:hover {
+  background-color: #f0f0f0;
+}
+
+.sort-icon {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.sort-icon.active {
+  opacity: 1;
+  color: #007bff;
+}
