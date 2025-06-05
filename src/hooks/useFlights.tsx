@@ -1,4 +1,3 @@
-// hooks/useFlights.tsx
 import { useCallback, useState } from 'react';
 import { Flight, FlightResponse } from '../types/api/Flight';
 import { api } from '../services/axios';
