@@ -1,46 +1,111 @@
-# Getting Started with Create React App
+# Flight Search Interface
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based flight search application that allows users to search, filter, sort, and favorite flights. This frontend interface connects to a Node.js backend API to provide real-time flight data.
+
+## Features
+
+- **Flight Search**: Search flights by origin, destination, and dates
+- **Advanced Filtering**: Filter flights by multiple criteria
+- **Sorting**: Sort flights by various columns (flight number, airline, price, etc.)
+- **Favorites**: Mark flights as favorites and view them separately
+- **Pagination**: Navigate through large flight datasets
+
+## Prerequisites
+
+Before running this project, you need to have the following installed:
+- [Node.js](https://nodejs.org/) (v16 or higher)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+
+## Backend Setup (Required)
+
+**⚠️ Important**: This frontend application requires the backend API to be running first.
+
+1. **Clone the backend repository**:
+   ```bash
+   git clone https://github.com/jonssond/flight-search.git
+   ```
+
+2. **Follow the backend setup instructions** in the cloned repository to install dependencies and start the API server.
+
+3. **Ensure the backend is running** before starting the frontend application.
+
+## Frontend Installation
+
+1. **Clone this repository**:
+   ```bash
+   git clone https://github.com/jonssond/flight-search-interface.git
+   cd flight-search-interface
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
 ## Available Scripts
 
-In the project directory, you can run:
-
 ### `npm start`
+```bash
+npm start
+```
+Runs the app in development mode on [http://localhost:3001](http://localhost:3001).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The page will reload automatically when you make edits, and you'll see any lint errors in the console.
 
 ### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm test
+```
+Launches the test runner in interactive watch mode.
 
 ### `npm run build`
+```bash
+npm run build
+```
+Builds the app for production to the `build` folder. The build is optimized and minified for the best performance.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `npm run lint`
+```bash
+npm run lint
+```
+Runs ESLint to check for code quality issues and potential errors.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm run lint:fix`
+```bash
+npm run lint:fix
+```
+Runs ESLint and automatically fixes issues that can be resolved automatically.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `npm run format`
+```bash
+npm run format
+```
+Formats code using Prettier according to the project's style configuration.
 
-### `npm run eject`
+## Getting Started
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. **Start the backend API** (from the cloned flight-search repository)
+2. **Start the frontend application**:
+   ```bash
+   npm start
+   ```
+3. **Open your browser** and navigate to [http://localhost:3001](http://localhost:3001)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Project Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+src/
+├── components/          # Reusable UI components
+│   ├── filter-form/    # Flight search form
+│   ├── header/         # Application header
+│   ├── table/          # Flight results table
+│   └── ...
+├── contexts/           # React contexts for state management
+├── hooks/              # Custom React hooks
+├── pages/              # Main page components
+├── services/           # API service configuration
+├── types/              # TypeScript type definitions
+├── utils/              # Utility functions
+└── styles/             # Global styles
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
