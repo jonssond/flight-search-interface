@@ -4,7 +4,6 @@ export const TableHeader = (props: tableHeaderProps) => {
   const { columns, onSort, sortConfig } = props;
 
   const handleSort = (column: string, index: number) => {
-    // Don't sort the last column (Favorites)
     if (index === columns.length - 1) return;
 
     if (!onSort) return;
@@ -23,11 +22,10 @@ export const TableHeader = (props: tableHeaderProps) => {
   };
 
   const getSortIcon = (column: string, index: number) => {
-    // Don't show sort icon for last column (Favorites)
     if (index === columns.length - 1) return null;
 
     if (sortConfig?.column !== column) {
-      return <span className="sort-icon">↕️</span>;
+      return <span className="sort-icon">↕</span>;
     }
 
     if (sortConfig.order === 'asc') {
@@ -36,7 +34,7 @@ export const TableHeader = (props: tableHeaderProps) => {
       return <span className="sort-icon active">↓</span>;
     }
 
-    return <span className="sort-icon">↕️</span>;
+    return <span className="sort-icon">↕</span>;
   };
 
   return (
